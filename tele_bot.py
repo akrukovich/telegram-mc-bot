@@ -11,7 +11,7 @@ parser = parser.ImdbParser()
 logger = telebot.logger
 
 telebot.logger.setLevel(logging.WARNING)
-TOKEN = ''
+TOKEN = '856121961:AAHax7gKb-iDJ9Pl-nNtZKV5VgrEjg5QcNE'
 
 bot = telebot.TeleBot(TOKEN)
 
