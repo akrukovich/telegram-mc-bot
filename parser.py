@@ -13,8 +13,8 @@ class ImdbParser:
     """
 
     __headers = {'accept': '*/*',
-               'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                             'snap Chromium/79.0.3945.130 Chrome/79.0.3945.130 Safari/537.36'
+                 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                               'snap Chromium/79.0.3945.130 Chrome/79.0.3945.130 Safari/537.36'
                  }
 
     @classmethod
@@ -107,8 +107,20 @@ class ImdbParser:
 
         if select:
             import random
-            info = random.choices(info, k=amount)
+            info = random.sample(info, k=amount)
 
             return info
 
         return info
+
+    def get_movies_string(self, select=True):
+
+        __reply_str = ''
+
+        for film in self.get_info(select=select):
+            tmp_string = f'''Title: {film['name']}\nGenre: {film['genre']}\nRating: {film['rating']}\nYear: {film['year']}
+Director: {film['director']}\nActors: {', '.join(film['actors'])}\n{film['link']}\n\n'''
+
+            __reply_str = ''.join([__reply_str, tmp_string])
+
+        return __reply_str
