@@ -10,7 +10,7 @@ parser = parser.ImdbParser()
 
 logger = telebot.logger
 
-telebot.logger.setLevel(logging.WARNING)
+telebot.logger.setLevel(logging.DEBUG)
 TOKEN = '856121961:AAHax7gKb-iDJ9Pl-nNtZKV5VgrEjg5QcNE'
 
 bot = telebot.TeleBot(TOKEN)
@@ -105,6 +105,9 @@ def add_show(message: types.Message):
     try:
         data = message.text.split('-')
 
+        int(data[1])
+        int(data[2])
+
         if len(data) > 3:
             raise ValueError
 
@@ -128,7 +131,10 @@ def update_show(message: types.Message):
     try:
         data = message.text.split('-')
 
-        if len(data) > 3:
+        int(data[1])
+        int(data[2])
+
+        if len(data) > 3 :
             raise ValueError
 
         db.update_show(data[0], message.from_user.id, data[1], data[2])
