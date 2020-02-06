@@ -1,8 +1,8 @@
 # jdbc:postgresql://localhost:5432/bots_db
+import os
 import psycopg2
-from urllib.parse import urlparse
 
-DATABASE_URI = "postgresql://postgres:123456@localhost/postgres"
+DATABASE_URL = os.environ['DATABASE_URL']
 
 __connection = None
 
@@ -11,17 +11,9 @@ def get_connection():
     global __connection
 
     if not __connection:
-        result = urlparse("postgresql://postgres:123456@localhost/postgres")
-        username = result.username
-        password = result.password
-        database = result.path[1:]
-        hostname = result.hostname
-        __connection = psycopg2.connect(
-            database=database,
-            user=username,
-            password=password,
-            host=hostname
-        )
+
+        __connection = conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
 
     return __connection
 
