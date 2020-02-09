@@ -37,8 +37,19 @@ def command_handler(message: types.Message):
         bot.send_message(message.chat.id, 'Evil Morty bot wants to have some fun ...', reply_markup=markup)
 
     else:
-        bot.send_message(message.chat.id, """If you don't know what you want to watch then pick on Random 5 movies to watch.
-But if you need update your tv shows data then the right button is your choice.""" )
+        bot.send_message(message.chat.id, """\
+Click on "Random 5 movies to watch" button provides you some movies.
+"Add/Update/Delete/All" button:
+Add tv show (or anime) to your list in this pattern "title-season-episode"
+For example: "Rick and Morty-2-5"
+Update tv show (or anime) to your list in this pattern "title-season-episode"
+For example: "Rick and Morty-4-4"
+Delete tv show (or anime) to your list in this pattern "title"
+For example: "Rick and Morty"
+All return the whole list of your shows. 
+
+
+""" )
 
 
 @bot.message_handler(content_types=['text'])
