@@ -5,6 +5,7 @@ This module provides imdb.com parser for telegram bot.
 
 import requests
 from bs4 import BeautifulSoup
+import concurrent.futures
 
 
 class ImdbParser:
@@ -44,11 +45,14 @@ class ImdbParser:
             req_contents: a list of requested content
 
         """
-        req_contents = []
+
         __session = requests.Session()
 
-        for url in cls.__create_urls():
-            req_contents.append(__session.get(url, headers=cls.__headers))
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+
+            urls = cls.__create_urls()
+            headers = cls.__headers
+            req_contents = executor.map(lambda a: __session.get(a, headers=headers), urls)
 
         return req_contents
 
