@@ -56,8 +56,7 @@ class ImdbParser:
 
         return req_contents
 
-    @staticmethod
-    def read_content(rt):
+    def read_content(self, rt):
 
         soup = BeautifulSoup(rt.content, 'lxml')
         data = soup.find_all('div', class_='lister-item mode-advanced')
@@ -88,7 +87,7 @@ class ImdbParser:
         with concurrent.futures.ProcessPoolExecutor() as executor:
             rts = self.__get_requests()
 
-            results = (executor.submit(read_content, r) for r in rts)
+            results = (executor.submit(self.read_content, r) for r in rts)
 
             movies = (movie.result() for movie in concurrent.futures.as_completed(results))
             movies = list(movies)
